@@ -1,5 +1,11 @@
+// declaring the library
+let myLibrary = [] ;
+
+
+
+ // ivoking the display function
+display(myLibrary);
 // varibles i will need
-// let myLibrary = [];
 let title = document.querySelector('.title');
 let author = document.querySelector('.author');
 let pages = document.querySelector('.pages');
@@ -12,33 +18,28 @@ function Book(title,author,pages,read){
     this.pages = pages ;
     this.read  = read;
 }
-Book.prototype.isread{ 
-    
+Book.prototype.changeread= function(){
+    let current = this.read ;
+    this.read = !current;
 }
 // add book to the array
 function addBookToLibrary(book){ 
     myLibrary.push(book)
 }
 // when add button is clicked
-addbook.addEventListener('click',function(){ 
-    let book =new Book(title.value,author.value,parseInt(pages.value),isread.checked);
-    addBookToLibrary(book)
-    title.value =  author.value = pages.value = '';
-    isread.checked = false;
+addbook.addEventListener('click',function(){
+    
+    if(!title.value || !author.value || !pages.value){
+        alert('Fill the Form !')
+    }
+    else { 
+            let book =new Book(title.value,author.value,parseInt(pages.value),isread.checked);
+            addBookToLibrary(book)
+            title.value =  author.value = pages.value = '';
+        isread.checked = false;
+    }
+    display(myLibrary);
 })
-// temp library for testing the functions
-let myLibrary = [
-    {title: 'aaaa',
-        author: 'aaaaaaaaaaaaaaaaa',
-        pages:200,
-        isread: false },
-    {title: 'bbb',
-        author: 'bbbbbbbbbbbb',
-        pages:100,
-        isread: true}
-]
-
-
 let showbord = document.querySelector('.showbord')
 // display the librar each book in a card 
 function display(library){ 
@@ -48,10 +49,13 @@ function display(library){
         showbord.appendChild(card)
         let book = library[index]
         for(let info in book){
-            let row = document.createElement('div')
-            row.className='row'
-            row.textContent= book[info]
-            card.appendChild(row)
+            if(book.hasOwnProperty(info)){
+                let row = document.createElement('div')
+                row.className='row'
+                row.textContent= book[info]
+                card.appendChild(row)
+            }
+            
         }
         // adding the remove from library button and associating it with the book
         let remover = document.createElement('button');
@@ -67,8 +71,11 @@ function display(library){
         card.appendChild(readingStatus)
     }
 }
-// ivoking the display function
-display(myLibrary);
+function reset(){ 
+    let remover = document.querySelectorAll('.delete-book')
+}
+
+// deleteing a book from the library 
 let deletebook = Array.from(document.querySelectorAll('.delete-book'))
 deletebook.map(delbtn=>{ 
     delbtn.addEventListener('click',function(e){
@@ -79,10 +86,3 @@ deletebook.map(delbtn=>{
         display(myLibrary)
     })
 })
-
-
-/*    let book = Object.create(Book);
-    book.title = title.value;
-    book.author = author.value;
-    book.pages = parseInt(pages.value);
-    book.isread = isread.checked*/
