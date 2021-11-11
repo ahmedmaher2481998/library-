@@ -38,6 +38,7 @@ addbook.addEventListener('click',function(){
             title.value =  author.value = pages.value = '';
         isread.checked = false;
     }
+    resetdisplay();
     display(myLibrary);
 })
 let showbord = document.querySelector('.showbord')
@@ -46,6 +47,9 @@ function display(library){
     for(let index in library){
         let card = document.createElement("div");
         card.className = 'card';
+        let databook = document.createElement('div');
+        databook.className='data-book'
+        card.appendChild(databook)
         showbord.appendChild(card)
         let book = library[index]
         for(let info in book){
@@ -53,7 +57,7 @@ function display(library){
                 let row = document.createElement('div')
                 row.className='row'
                 row.textContent= book[info]
-                card.appendChild(row)
+                databook.appendChild(row)
             }
             
         }
@@ -71,10 +75,15 @@ function display(library){
         card.appendChild(readingStatus)
     }
 }
-function reset(){ 
-    let remover = document.querySelectorAll('.delete-book')
-}
+// reset display 
+function resetdisplay(){ 
+    // let cards = Array.from(document.querySelectorAll('.card'));
+    // cards.map(card =>{ 
+    //     card.parentElement.removeChild()
+    // })
+    showbord.innerHTML='';
 
+}
 // deleteing a book from the library 
 let deletebook = Array.from(document.querySelectorAll('.delete-book'))
 deletebook.map(delbtn=>{ 
@@ -83,6 +92,14 @@ deletebook.map(delbtn=>{
         myLibrary = myLibrary.filter((book,indexofbook)=> {
             return indexofbook != theindex;
         })
+        resetdisplay();
         display(myLibrary)
+    })
+})
+// changing read status 
+let readitbuttons = Array.from(document.querySelectorAll('.reading-book'));
+readitbuttons.map(readitbutton=>{ 
+    addEventListener('clikc',function(e){ 
+        console.log(e.target.dataset.index)
     })
 })
