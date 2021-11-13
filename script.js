@@ -26,8 +26,8 @@ let readbook = document.querySelectorAll(".reading-book")
 display(myLibrary);
 addbook.addEventListener('click',function(){
     
-    if(!title.value || !author.value || !pages.value){
-        alert('Fill the Form !')
+    if(!title.value || !author.value || pages.value < 0 ||!pages.value){
+        alert('Fill the Form With valid data!')
     }
     else { 
             let book =new Book(title.value,author.value,parseInt(pages.value),isread.checked);
@@ -115,7 +115,7 @@ readitbuttons.map(readitbutton=>{
 })
 
 // Book constructor
-function Book(title,author,pages,read){ 
+let Book = function(title,author,pages,read){ 
     this.title = title ;
     this.author = author ;
     this.pages = pages ;
