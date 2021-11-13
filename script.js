@@ -61,7 +61,10 @@ function display(library){
             if(book.hasOwnProperty(info)){
                 let row = document.createElement('div')
                 row.className='row'
-                row.textContent= book[info]
+                row.textContent= `${info} : ${book[info]}`
+                if(info == 'read') { 
+                    row.textContent =`${info} : ${book[info]? 'yes' : 'No'}`
+                }
                 databook.appendChild(row)
             }
         }
@@ -113,7 +116,6 @@ readbook.map(readbookbtn=>{
     })
 })
 
-
 // Book constructor
 let Book = function(title,author,pages,read){ 
     this.title = title ;
@@ -121,17 +123,6 @@ let Book = function(title,author,pages,read){
     this.pages = pages ;
     this.read  = read;
 }
-/*
-Book.prototype.readit = function(){ 
-        let now = this.read
-        this.read = !now
-    }
-/*
-Book.prototype.changeread= function(){
-    let current = this.read ;
-    this.read = !current;
-}
-*/
 // add book to the array
 function addBookToLibrary(book){ 
     myLibrary.push(book)
