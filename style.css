@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
-
 body{ 
     margin: 0;
     padding: 0;
@@ -45,17 +44,6 @@ input :focus{
     font-weight: 500;
 
 }
-/*
-.add{ 
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 15px;
-    height: 50px;
-    width: 150PX;
-    text-align: center;
-    background-color: rgb(65, 80, 85);
-    color: white;
-}*/
 .showbord{ 
     background-color: #E6DDC4;
     padding: 50px;
@@ -104,10 +92,11 @@ input :focus{
     border: 3px solid #181D31;
 }
 .data-book{
-    
+    display:inline-block;
+    height : auto ;
     width: 220px;
-    display: flex;
-    flex-flow: column wrap;
+   /* display: flex;
+    flex-flow: column wrap;*/
     margin: 5px;
 }
 .row{ 

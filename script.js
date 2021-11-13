@@ -1,10 +1,6 @@
-// declaring the library
+
 /*
 issues to fix 
---local storage working //done
---extera words with the info the user provides
---delete button working 
---read button working 
 -- wraped titles and text 
  */
 
@@ -13,7 +9,6 @@ if(!myLibrary || myLibrary=='null'){
     myLibrary= [];
     set();
 }
- 
 // varibles i will need
 let displayed;
 let title = document.querySelector('.title');
@@ -73,12 +68,18 @@ function display(library){
         remover.setAttribute('data-index',`${index}`);
         remover.className='delete-book'
         remover.textContent = 'Delete';
+        remover.addEventListener('click', function(e){ 
+            deletebook(e);
+        })
         card.appendChild(remover);
         // adding a button to change the read status for the book
         let readingStatus = document.createElement('button');
         readingStatus.setAttribute('data-index',`${index}`);
         readingStatus.className='reading-book';
         readingStatus.textContent='Read It'
+        readingStatus.addEventListener('click',function(e){ 
+            readbookornot(e);
+        })
         card.appendChild(readingStatus)
     }
 }
@@ -87,35 +88,25 @@ function resetdisplay(){
     showbord.innerHTML='';
     displayed=false;
 }
-// deleteing a book from the library
-let deletebook = Array.from(document.querySelectorAll('.delete-book'))
-deletebook.map(delbtn=>{ 
-    delbtn.addEventListener('click',function(e){
-        let theindex = e.target.dataset.index
+function deletebook(e){ 
+    let theindex = e.target.dataset.index
         myLibrary = myLibrary.filter((book,indexofbook)=> {
             return indexofbook != theindex;
         })
         resetdisplay();
         display(myLibrary)
         set();
+}
+function readbookornot(e){ 
+    myLibrary.map((book,index)=>{ 
+        if(index == e.target.dataset.index){
+            book.read = !(book.read)
+            set();
+            resetdisplay();
+            display(get())
+        }
     })
-})
-// read / unread button
-let readbook = Array.from(document.querySelectorAll('.reading-book'))
-readbook.map(readbookbtn=>{ 
-    readbookbtn.addEventListener('click',function(e){ 
-        myLibrary.map((book,index)=>{ 
-            if(index == e.target.dataset.index){
-                book.read = !(book.read)
-                set();
-                resetdisplay();
-                display(get())
-
-            }
-        })
-    })
-})
-
+}
 // Book constructor
 let Book = function(title,author,pages,read){ 
     this.title = title ;
