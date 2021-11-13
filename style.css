@@ -49,14 +49,14 @@ input :focus{
     padding: 50px;
     display: flex;
     flex-flow: row wrap;
-    height: 50%;
+    height: auto; /**/
 
 }
 .card{ 
     border-radius: 20px;
     border: 1.5px solid #2c3b39;
     width: 250px;
-    /* height: 200px; */
+     height: auto; 
     padding: 10px;
     text-align: center;
     font-size: 20px;
@@ -100,7 +100,7 @@ input :focus{
     margin: 5px;
 }
 .row{ 
-    
+    overflow-wrap: break-word;
     display: flex;
     width: 200px;
     word-wrap: break-word;
