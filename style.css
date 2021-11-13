@@ -1,11 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
 body{ 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     background-color: #F0E9D2; 
     font-family:Georgia, 'Times New Roman', Times, serif;
+    display: flex;
+    flex-flow: column wrap;
 }
 h3{ 
+    font-family: 'Source Code Pro', monospace;
     text-align: center;
     color: rgb(48, 62, 73);
     color: #555042;
@@ -56,6 +61,7 @@ input :focus{
     padding: 50px;
     display: flex;
     flex-flow: row wrap;
+    height: 50%;
 
 }
 .card{ 
@@ -115,4 +121,17 @@ input :focus{
     width: 200px;
     font-size: 18px;
     color: beige;
+}
+.end{
+    margin-top: 50px;
+    align-self: flex-end;
+    color: black;
+    background-color: #f5f3ed;
+    font-size: larger; 
+    height: 20px;
+    width: 100%;
+    text-align: center;
+}
+.end a { 
+    color: white;
 }

@@ -1,32 +1,29 @@
 // declaring the library
-let myLibrary = [] ;
+/*
+issues to fix 
+--local storage working 
+--extera words with the info the user provides
+--delete button working 
+--read button working 
+-- wraped titles and text 
 
-
-
- // ivoking the display function
-display(myLibrary);
+ */
+let myLibrary = JSON.parse(localStorage.getItem("library"));
+if(!myLibrary || myLibrary=='null'){ 
+    myLibrary= [];
+    localStorage.setItem("library", JSON.stringify(myLibrary))
+}
+ 
 // varibles i will need
 let title = document.querySelector('.title');
 let author = document.querySelector('.author');
 let pages = document.querySelector('.pages');
 let isread = document.querySelector('.isread')
 let addbook = document.querySelector('.add')
-// Book constructor
-function Book(title,author,pages,read){ 
-    this.title = title ;
-    this.author = author ;
-    this.pages = pages ;
-    this.read  = read;
-}
-Book.prototype.changeread= function(){
-    let current = this.read ;
-    this.read = !current;
-}
-// add book to the array
-function addBookToLibrary(book){ 
-    myLibrary.push(book)
-}
-// when add button is clicked
+let showbord = document.querySelector('.showbord')
+let readbook = document.querySelectorAll(".reading-book")
+// ivoking the display function
+display(myLibrary);
 addbook.addEventListener('click',function(){
     
     if(!title.value || !author.value || !pages.value){
@@ -35,13 +32,14 @@ addbook.addEventListener('click',function(){
     else { 
             let book =new Book(title.value,author.value,parseInt(pages.value),isread.checked);
             addBookToLibrary(book)
+            localStorage.setItem("library",JSON.stringify(myLibrary));
             title.value =  author.value = pages.value = '';
-        isread.checked = false;
+            isread.checked = false;
     }
     resetdisplay();
     display(myLibrary);
 })
-let showbord = document.querySelector('.showbord')
+
 // display the librar each book in a card 
 function display(library){ 
     for(let index in library){
@@ -59,7 +57,6 @@ function display(library){
                 row.textContent= book[info]
                 databook.appendChild(row)
             }
-            
         }
         // adding the remove from library button and associating it with the book
         let remover = document.createElement('button');
@@ -94,8 +91,21 @@ deletebook.map(delbtn=>{
         })
         resetdisplay();
         display(myLibrary)
+        localStorage.setItem("library",JSON.stringify(myLibrary))
     })
 })
+// read book change status 
+Array.from(readbook).map(readbutton=>{ 
+    readbutton.addEventListener('click',function(e){ 
+        let theindex = e.target.dataset.index;
+        myLibrary = myLibrary.map((book,bookindex)=>{
+            if(bookindex == theindex){ 
+                book.changeread();
+                display(myLibrary)
+            } 
+        })
+    });
+});
 // changing read status 
 let readitbuttons = Array.from(document.querySelectorAll('.reading-book'));
 readitbuttons.map(readitbutton=>{ 
@@ -103,3 +113,20 @@ readitbuttons.map(readitbutton=>{
         console.log(e.target.dataset.index)
     })
 })
+
+// Book constructor
+function Book(title,author,pages,read){ 
+    this.title = title ;
+    this.author = author ;
+    this.pages = pages ;
+    this.read  = read;
+}
+Book.prototype.changeread= function(){
+    let current = this.read ;
+    this.read = !current;
+}
+// add book to the array
+function addBookToLibrary(book){ 
+    myLibrary.push(book)
+}
+// when add button is clicked
