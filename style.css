@@ -95,8 +95,6 @@ input :focus{
     display:inline-block;
     height : auto ;
     width: 220px;
-   /* display: flex;
-    flex-flow: column wrap;*/
     margin: 5px;
 }
 .row{ 

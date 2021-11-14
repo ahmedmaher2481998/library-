@@ -35,7 +35,6 @@ addbook.addEventListener('click',function(){
     resetdisplay();
     display(myLibrary);
 })
-
 // display the librar each book in a card 
 function display(library){ 
     if(displayed){ 
@@ -123,7 +122,6 @@ function get(){
     return JSON.parse(localStorage.getItem("library"));
 } 
 // modify the myLibrary array atthe localStorage
-
 function set(){ 
     localStorage.setItem("library", JSON.stringify(myLibrary))
 }
